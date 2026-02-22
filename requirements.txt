@@ -1,0 +1,41 @@
+# =============================================================================
+# Cloud Advanced Downloader - Python Dependencies
+# Version: 2.0.0
+# Description: Required Python packages for Cloud Advanced Downloader
+# =============================================================================
+
+# Core HTTP and Networking
+requests>=2.28.0
+urllib3>=1.26.0
+
+# Progress Bars and UI
+tqdm>=4.64.0
+ipywidgets>=7.7.0
+
+# HTML Parsing
+beautifulsoup4>=4.11.0
+lxml>=4.9.0
+
+# Mega.nz Support
+mega.py>=1.0.8
+
+# System and Process Management
+psutil>=5.9.0
+
+# Data Processing (for advanced features)
+pandas>=1.5.0
+numpy>=1.23.0
+
+# JSON Handling (built-in, but ensure compatibility)
+json5>=0.9.0
+
+# Archive Handling
+py7zr>=0.20.0
+
+# Optional: For torrent support (future feature)
+# libtorrent>=2.0.0
+
+# Development Dependencies (uncomment if needed)
+# pytest>=7.0.0
+# black>=22.0.0
+# flake8>=5.0.0

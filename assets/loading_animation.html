@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Advanced Downloader - Loading</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+        }
+
+        /* Main Loading Spinner */
+        .loader-ring {
+            display: inline-block;
+            position: relative;
+            width: 120px;
+            height: 120px;
+        }
+
+        .loader-ring div {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 4px solid transparent;
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1.2s linear infinite;
+        }
+
+        .loader-ring div:nth-child(1) {
+            animation-delay: -0.45s;
+            border-top-color: #ff6b6b;
+        }
+
+        .loader-ring div:nth-child(2) {
+            animation-delay: -0.3s;
+            border-top-color: #4ecdc4;
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+        }
+
+        .loader-ring div:nth-child(3) {
+            animation-delay: -0.15s;
+            border-top-color: #ffe66d;
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+        }
+
+        .loader-ring div:nth-child(4) {
+            border-top-color: #fff;
+            width: 40%;
+            height: 40%;
+            top: 30%;
+            left: 30%;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Loading Text */
+        .loading-text {
+            color: #fff;
+            font-size: 1.8em;
+            margin-top: 30px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .loading-subtext {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1em;
+            margin-top: 10px;
+            font-weight: 300;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 300px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            margin: 30px auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4ecdc4, #44a3aa);
+            border-radius: 3px;
+            width: 0%;
+            animation: progress 3s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            50% { width: 70%; }
+            100% { width: 100%; }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 15s infinite;
+        }
+
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 12s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 2s; animation-duration: 15s; }
+        .particle:nth-child(3) { left: 30%; animation-delay: 4s; animation-duration: 10s; }
+        .particle:nth-child(4) { left: 40%; animation-delay: 1s; animation-duration: 18s; }
+        .particle:nth-child(5) { left: 50%; animation-delay: 3s; animation-duration: 14s; }
+        .particle:nth-child(6) { left: 60%; animation-delay: 5s; animation-duration: 16s; }
+        .particle:nth-child(7) { left: 70%; animation-delay: 2s; animation-duration: 11s; }
+        .particle:nth-child(8) { left: 80%; animation-delay: 4s; animation-duration: 13s; }
+        .particle:nth-child(9) { left: 90%; animation-delay: 1s; animation-duration: 17s; }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Status Indicators */
+        .status-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            animation: dot-pulse 1.4s ease-in-out infinite;
+        }
+
+        .status-dot:nth-child(1) { animation-delay: 0s; background: #4ecdc4; }
+        .status-dot:nth-child(2) { animation-delay: 0.2s; background: #ffe66d; }
+        .status-dot:nth-child(3) { animation-delay: 0.4s; background: #ff6b6b; }
+
+        @keyframes dot-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+        }
+
+        /* Speed Indicator */
+        .speed-indicator {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9em;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .speed-value {
+            color: #4ecdc4;
+            font-weight: bold;
+        }
+
+        /* Logo */
+        .logo {
+            font-size: 3em;
+            margin-bottom: 20px;
+            animation: bounce 2s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+        <div class="logo">☁️</div>
+        
+        <div class="loader-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <h1 class="loading-text">CLOUD DOWNLOADER</h1>
+        <p class="loading-subtext">Initializing download engine...</p>
+
+        <div class="progress-container">
+            <div class="progress-bar"></div>
+        </div>
+
+        <div class="status-dots">
+            <div class="status-dot"></div>
+            <div class="status-dot"></div>
+            <div class="status-dot"></div>
+        </div>
+
+        <p class="speed-indicator">
+            Status: <span class="speed-value">Connecting...</span>
+        </p>
+    </div>
+
+    <script>
+        // Dynamic status messages
+        const messages = [
+            "Connecting to server...",
+            "Resolving host...",
+            "Initializing download...",
+            "Allocating resources...",
+            "Ready to download!"
+        ];
+
+        let messageIndex = 0;
+        const statusElement = document.querySelector('.speed-value');
+        const subtextElement = document.querySelector('.loading-subtext');
+
+        setInterval(() => {
+            messageIndex = (messageIndex + 1) % messages.length;
+            statusElement.textContent = messages[messageIndex];
+            
+            // Update subtext based on progress
+            if (messageIndex === 0) subtextElement.textContent = "Establishing connection...";
+            else if (messageIndex === 1) subtextElement.textContent = "Looking up server address...";
+            else if (messageIndex === 2) subtextElement.textContent = "Preparing download components...";
+            else if (messageIndex === 3) subtextElement.textContent = "Setting up download directory...";
+            else subtextElement.textContent = "System ready!";
+        }, 2000);
+
+        // Simulate progress updates
+        let progress = 0;
+        const progressBar = document.querySelector('.progress-bar');
+        
+        setInterval(() => {
+            progress = (progress + Math.random() * 15) % 100;
+            progressBar.style.width = progress + '%';
+        }, 500);
+    </script>
+</body>
+</html>
