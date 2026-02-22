@@ -1,6 +1,6 @@
 # Cloud Advanced Downloader
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/yourusername/Cloud-Advanced-Downloader/blob/main/notebook/Advanced_Downloader.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://https://github.com/MhsymR/Notebook-Downloader-for-GoogleColab/blob/main/notebook/Advanced_Downloader.ipynb)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/yourusername/Cloud-Advanced-Downloader)
 
